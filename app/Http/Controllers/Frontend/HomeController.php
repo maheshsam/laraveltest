@@ -7,12 +7,15 @@ use Illuminate\Support\Facades\DB;
 use App\User;
 use App\Role;
 use App\Film;
+use App\Film_comment;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Response;
+use Redirect;
 use Illuminate\Http\JsonResponse;
 use Validator;
 use Config;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -89,10 +92,10 @@ class HomeController extends Controller
         $film->genre = $formdata['genre'];
         $film->photo = $photofilename;
         $film->save();
-        return redirect('/films')->with('message', trans('Film added ssuccessfully').'.');
+        return redirect('/films')->with('message', trans('Film added successfully').'.');
     }
 
-    public function postfilmcomment(Request $request){
+    public function postfilmcomment(Request $request, $filmid = 0){
         $formdata = $request->all();
         $validator = Validator::make($formdata, [
             'name' => 'required',
@@ -100,17 +103,18 @@ class HomeController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()
+            return Redirect::back()
                         ->withErrors($validator)
                         ->withInput();
         }
 
-        $filmcomment = new Film();
+        $filmcomment = new Film_comment();
         $filmcomment->name = $formdata['name'];
-        $filmcomment->slug = $formdata['slug'];
-        $filmcomment->film_id = ;
-        $film->save();
-        return redirect('/films')->with('message', trans('Film added ssuccessfully').'.');
+        $filmcomment->comment = $formdata['comment'];
+        $filmcomment->film_id = $filmid;
+        $filmcomment->user_id = Auth::id();
+        $filmcomment->save();
+        return Redirect::back()->with('message', trans('Comment added successfully').'.');
     }
 
     public function getfilms($offset = 0){

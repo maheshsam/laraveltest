@@ -83,7 +83,7 @@
 	                    		{{ Form::open(array('url' => url('/comment/create/'.$filmdetails->id), 'class' => '')) }}
 								    <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
 								        <label class="control-label visible-ie8 visible-ie9"><?php echo trans('Name'); ?></label>
-								        <input id="name" type="text" name="name" value="{{ old('name') }}" class="form-control form-control-solid placeholder-no-fix" autocomplete="off" /> 
+								        <input id="name" type="text" name="name" value="{{ old('name') ? old('name') : Auth::user()->name }}" class="form-control form-control-solid placeholder-no-fix" autocomplete="off" /> 
 								        @if ($errors->has('name'))
 								            <span class="help-block">{{ $errors->first('name') }}</span>
 								        @endif
