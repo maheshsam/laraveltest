@@ -21,7 +21,7 @@ class FilmsTableSeeder extends Seeder
         $film->ticket_price = 25;
         $film->country = "UNITED STATES";
         $film->genre = "CRIME,DRAMA";
-        $film->photo = "";
+        $film->photo = "godfather.jpg";
         $film->save();
 
         $film_comment = new Film_comment();
@@ -38,7 +38,7 @@ class FilmsTableSeeder extends Seeder
         $film->ticket_price = 25;
         $film->country = "UNITED STATES";
         $film->genre = "CRIME,DRAMA";
-        $film->photo = "";
+        $film->photo = "godfather.jpg";
         $film->save();
 
         $film_comment = new Film_comment();
@@ -55,7 +55,7 @@ class FilmsTableSeeder extends Seeder
         $film->ticket_price = 25;
         $film->country = "UNITED STATES";
         $film->genre = "CRIME,DRAMA";
-        $film->photo = "";
+        $film->photo = "godfather.jpg";
         $film->save();
 
         $film_comment = new Film_comment();

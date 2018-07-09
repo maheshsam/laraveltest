@@ -72,7 +72,7 @@ class AuthController extends Controller
     public function handleProviderCallback($provider)
     {
         // if($current_user->)
-        // return redirect($this->redirectTo);
+        return redirect($this->redirectTo);
     }
 
     public function findOrCreateUser($user, $provider)
@@ -95,10 +95,7 @@ class AuthController extends Controller
         return Validator::make($data, [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
-            'address' => 'max:255',
-            'phone' => 'max:100',
-            'language' => 'required|max:100',
+            'password' => 'required|confirmed',
         ]);
     }
 
@@ -114,12 +111,9 @@ class AuthController extends Controller
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'address' => $data['address'],
-            'phone' => $data['phone'],
-            'language' => $data['language'],
             'password' => bcrypt($data['password']),
         ]);
-        $user->roles()->attach(Role::where('name','Agent')->first());
+        $user->roles()->attach(Role::where('name','User')->first());
         return $user;
     }
 
